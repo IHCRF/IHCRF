@@ -1,0 +1,54 @@
+# Contribution Guidelines
+
+We’re excited that you’re interested in contributing to the IHCRF repository! Below are some basic guidelines for contributing, whether you are submitting code, reporting an issue, or participating in a discussion.
+
+## How to Contribute
+
+### 1. Reporting Issues
+If you encounter any bugs, have a feature request, or need clarification on any aspect of our projects, feel free to open an issue. Please provide as much detail as possible, including:
+- A clear description of the issue or request.
+- Steps to reproduce the bug (if applicable).
+- Any relevant screenshots or logs that can help us understand the issue.
+
+### 2. Submitting Code
+If you’d like to submit code (for a new feature, fix, or improvement), follow these steps:
+1. **Fork** the repository and create your own branch (`git checkout -b feature/new-feature`).
+2. **Make your changes** in your branch, ensuring that the code is clean and well-documented.
+3. **Test** your changes locally to ensure they work as expected and don’t break existing functionality.
+4. **Submit a pull request (PR)** describing your changes and the problem they solve or improvement they make. In the PR, please:
+   - Reference any related issue (e.g., “This PR fixes issue #10”).
+   - Explain the context and reasoning behind your changes.
+5. **Review process**: Once you submit a PR, it will be reviewed by one of our team members. We may request some changes or ask for additional information. Once approved, it will be merged into the main branch.
+
+### 3. Documentation Contributions
+If you want to contribute to the documentation, you can:
+- Improve existing documentation to make it clearer or more comprehensive.
+- Add new documentation that explains new features, methodologies, or processes.
+- Correct any typos or grammatical errors.
+
+### 4. Feature Requests
+If you have an idea for a new feature that could improve our work, feel free to open a feature request issue. Be sure to describe:
+- The problem the feature would solve.
+- How it would work or integrate with the existing tools.
+- Any potential impacts on existing functionality.
+
+## Code of Conduct
+
+We strive to create a welcoming and inclusive environment for everyone involved. Please read and adhere to our [Code of Conduct](#link-to-code-of-conduct) when contributing.
+
+## Style Guide for Code
+
+To ensure consistency across all contributions, we ask that you follow these coding standards:
+- **Use descriptive variable names** and keep code clean and readable.
+- **Write comments** where necessary to explain complex logic or decisions.
+- **Test your code** thoroughly before submitting.
+- **Follow best practices** for the language and framework used in the project.
+
+## Getting Started
+
+If you’re new to open-source contributions or the IHCRF repository, here are a few steps to help you get started:
+1. Check the **issues** section to see if there are any open tasks that align with your expertise or interests.
+2. Review the **README** to understand the purpose of the project.
+3. Refer to the **project documentation** for additional guidance on how the repository is structured.
+
+We are grateful for all contributions and look forward to working with you!
