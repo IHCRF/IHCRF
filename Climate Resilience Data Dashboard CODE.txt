@@ -1,0 +1,104 @@
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+from dash import Dash, dcc, html, Input, Output
+from datetime import datetime, timedelta
+
+# Load data (replace with your actual data source)
+# In a real-world scenario, you might want to use a database or an API
+df = pd.read_csv('climate_data.csv')
+
+# Convert date column to datetime
+df['date'] = pd.to_datetime(df['date'])
+
+# Initialize the Dash app
+app = Dash(__name__)
+
+# Define the layout of the dashboard
+app.layout = html.Div([
+    html.H1("Climate Resilience Data Dashboard for India", style={'textAlign': 'center'}),
+    
+    html.Div([
+        # Dropdown for selecting region
+        html.Label("Select Region:"),
+        dcc.Dropdown(
+            id='region-dropdown',
+            options=[{'label': i, 'value': i} for i in df['region'].unique()],
+            value=df['region'].iloc[0],
+            style={'width': '50%'}
+        ),
+        
+        # Date range picker
+        html.Label("Select Date Range:"),
+        dcc.DatePickerRange(
+            id='date-range',
+            start_date=df['date'].min(),
+            end_date=df['date'].max(),
+            display_format='YYYY-MM-DD'
+        )
+    ], style={'margin': '20px'}),
+    
+    # Graphs
+    dcc.Graph(id='temperature-graph'),
+    dcc.Graph(id='rainfall-graph'),
+    dcc.Graph(id='extreme-events-graph')
+])
+
+# Callback to update all graphs based on user input
+@app.callback(
+    [Output('temperature-graph', 'figure'),
+     Output('rainfall-graph', 'figure'),
+     Output('extreme-events-graph', 'figure')],
+    [Input('region-dropdown', 'value'),
+     Input('date-range', 'start_date'),
+     Input('date-range', 'end_date')]
+)
+def update_graphs(selected_region, start_date, end_date):
+    # Filter data based on user selection
+    filtered_df = df[(df['region'] == selected_region) & 
+                     (df['date'] >= start_date) & 
+                     (df['date'] <= end_date)]
+    
+    # Temperature Trend Graph
+    temp_fig = px.line(filtered_df, x='date', y='temperature', 
+                       title=f'Temperature Trends in {selected_region}')
+    temp_fig.update_layout(yaxis_title="Temperature (°C)")
+    
+    # Add a trendline to temperature graph
+    temp_fig.add_trace(go.Scatter(x=filtered_df['date'], 
+                                  y=filtered_df['temperature'].rolling(window=30).mean(),
+                                  mode='lines', name='30-day Moving Average',
+                                  line=dict(color='red', dash='dash')))
+    
+    # Rainfall Data Graph
+    rain_fig = px.bar(filtered_df, x='date', y='rainfall', 
+                      title=f'Rainfall Data in {selected_region}')
+    rain_fig.update_layout(yaxis_title="Rainfall (mm)")
+    
+    # Extreme Weather Events Graph
+    # Assuming we have columns for different types of extreme events
+    extreme_events = ['heatwaves', 'floods', 'cyclones']
+    extreme_df = filtered_df[['date'] + extreme_events]
+    extreme_df_melted = pd.melt(extreme_df, id_vars=['date'], value_vars=extreme_events, 
+                                var_name='event_type', value_name='count')
+    
+    extreme_fig = px.scatter(extreme_df_melted, x='date', y='count', color='event_type',
+                             title=f'Extreme Weather Events in {selected_region}')
+    extreme_fig.update_traces(marker=dict(size=10))
+    extreme_fig.update_layout(yaxis_title="Number of Events")
+    
+    return temp_fig, rain_fig, extreme_fig
+
+# Add forecasting functionality
+def generate_forecast(data, days=30):
+    # This is a simple moving average forecast
+    # In a real-world scenario, you'd use more sophisticated models like ARIMA or Prophet
+    last_date = data['date'].max()
+    forecast_dates = [last_date + timedelta(days=x) for x in range(1, days+1)]
+    forecast_temps = data['temperature'].rolling(window=30).mean().iloc[-1:].repeat(days).values
+    
+    return pd.DataFrame({'date': forecast_dates, 'temperature': forecast_temps})
+
+# Run the app
+if __name__ == '__main__':
+    app.run_server(debug=True)
