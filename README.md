@@ -2,6 +2,6 @@
 - 👀 We’re interested in advancing research and practical solutions around health and climate resilience, particularly in the Indian context. 
 - 🌱 We’re currently learning how to integrate cutting-edge tools, technologies, and research methodologies to empower our fellows and stakeholders in tackling public health challenges, climate adaptation, and policy advocacy.
 - 💞️ We’re looking to collaborate on open-source projects related to climate resilience, public health, and digital tools that support data analysis and program development.
-- 📫 How to reach us: Email us at [info@ihcrf.in] or visit our website at [www.ihcrf.in]
+- 📫 How to reach us: Email us at info@ihcrf.in or visit our website at www.ihcrf.in
 - 😄 Pronouns: We/Us
 - ⚡ Fun fact: Our fellowship supports cross-disciplinary learning, blending public health, environmental sciences, and social research to create future-ready leaders!
